@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  pokescanner:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: PokeScanner
+    image: pokescanner:latest
+    ports:
+      - "5000:3000"  # Host-Port 5000 -> Container-Port 3000
+    volumes:
+      - ./Karten:/Karten  # Speichert die Bilder dauerhaft auf Unraid
+    environment:
+      - TZ=Europe/Berlin
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

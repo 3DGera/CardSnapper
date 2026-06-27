@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PokeScanner HD</title>
+    <style>
+        :root { --header-h: 40px; --footer-h: 180px; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            background: #000; color: #fff; font-family: -apple-system, sans-serif;
+            margin: 0; padding: 0; height: 100dvh; width: 100vw;
+            display: flex; flex-direction: column; overflow: hidden;
+            touch-action: none;
+        }
+        #status-bar { height: var(--header-h); background: #222; font-size: 11px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #444; flex-shrink: 0; }
+        #viewport { flex-grow: 1; position: relative; background: #111; display: flex; align-items: center; justify-content: center; overflow: hidden; touch-action: none; }
+        video { max-width: 100%; max-height: 100%; object-fit: contain; z-index: 1; touch-action: none; }
+        #guide { position: absolute; border: 2px dashed rgba(255, 255, 0, 0.5); width: 220px; height: 308px; border-radius: 12px; pointer-events: none; z-index: 5; }
+        #footer { height: var(--footer-h); background: #1c1c1e; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; padding: 10px 20px calc(10px + env(safe-area-inset-bottom)); flex-shrink: 0; border-top: 1px solid #333; z-index: 10; }
+        #btnStart { width: 100%; height: 65px; border-radius: 16px; border: none; background: #007aff; color: #fff; font-size: 19px; font-weight: bold; }
+        #btnStart.active { background: #32d74b; }
+        #btnStart:disabled { background: #444; }
+        #zoom-label { font-size: 12px; color: #8e8e93; }
+        canvas { display: none; }
+    </style>
+</head>
+<body>
+    <div id="status-bar">Status: <span id="status-text">Lade OpenCV...</span></div>
+    <div id="viewport">
+        <video id="video" autoplay playsinline muted></video>
+        <div id="guide"></div>
+    </div>
+    <div id="footer">
+        <div id="zoom-label">Zoom: 1.0x (Pinch-Geste)</div>
+        <button id="btnStart" disabled>WARTE AUF SYSTEM...</button>
+    </div>
+    <canvas id="tempCanvas"></canvas>
+    <script async src="https://docs.opencv.org/4.5.4/opencv.js" onload="cvReady()"></script>
+    <script src="script.js"></script>
+</body>
+</html>
