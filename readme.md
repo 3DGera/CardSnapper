@@ -45,11 +45,11 @@ Kopiere die Projektstruktur in deinen Appdata-Ordner auf Unraid (z.B. per SMB od
 1. Öffne das Unraid-Terminal (Symbol `>_` oben rechts).
 2. Navigiere in den Projektordner:
    ```bash
-   cd /mnt/user/appdata/pokescanner
+   cd /mnt/user/appdata/cardsnapper
    ```
 3. Baue das Docker-Image lokal:
    ```bash
-   docker build -t pokescanner ./app
+   docker build -t cardsnapper ./app
    ```
    *Dieser Befehl erstellt das Image "pokescanner", installiert alle Abhängigkeiten und generiert die SSL-Zertifikate für HTTPS.*
 
