@@ -1,6 +1,6 @@
-# Sammelkarten-Bildersteller 📸
+# CardSnapper 📸
 
-Sammelkarten-Bildersteller ist eine spezialisierte Web-Applikation, die in einem Docker-Container läuft und ein Handy in einen vollautomatischen Hochleistungs-Scanner für Sammelkarten (optimiert für Pokémon) verwandelt. 
+ist eine spezialisierte Web-Applikation, die in einem Docker-Container läuft und ein Handy in einen vollautomatischen Hochleistungs-Scanner für Sammelkarten (optimiert für Pokémon) verwandelt. 
 
 Dieses Projekt wurde speziell für das Hosting auf **Unraid** entwickelt und nutzt **OpenCV.js**, um Karten in einer physischen Scannerbox automatisch zu erkennen, perspektivisch zu korrigieren (Crop) und in Ultra-HD für die anschließende KI-Analyse (VLM) zu speichern.
 
@@ -18,9 +18,7 @@ Dieses Projekt wurde speziell für das Hosting auf **Unraid** entwickelt und nut
 ## 🛠 Voraussetzungen
 
 - **Unraid Server** (getestet auf Version 6.12+)
-- **Scannerbox:** Idealerweise weißer Innenraum, schwarzer Boden (Stapelfläche) und LED-Beleuchtung.
-- **iPhone:** iOS 15.4+ (für Kamera- und Zoom-API).
-- **Netzwerk:** iPhone und Unraid müssen im selben WLAN/LAN sein.
+- **Netzwerk:** Smartphone und Docker müssen im selben WLAN/LAN sein.
 
 ---
 
@@ -31,7 +29,7 @@ Da Unraid Images standardmäßig aus der Registry zieht, wir aber ein lokales Do
 ### 1. Dateien vorbereiten
 Kopiere die Projektstruktur in deinen Appdata-Ordner auf Unraid (z.B. per SMB oder mit dem "Krusader" Plugin):
 ```text
-/mnt/user/appdata/pokescanner/
+/mnt/user/appdata/cardsnapper/
 ├── docker-compose.yml
 ├── Karten/             <-- Hier landen die Fotos
 └── app/
@@ -57,14 +55,14 @@ Kopiere die Projektstruktur in deinen Appdata-Ordner auf Unraid (z.B. per SMB od
 
 ### 3. Container in Unraid GUI anlegen
 1. Gehe zum Tab **Docker** und klicke unten auf **Add Container**.
-2. **Name:** `PokeScanner`
-3. **Repository:** `pokescanner:latest`
+2. **Name:** `CardSnapper`
+3. **Repository:** `cardsnapper:latest`
 4. **Network Type:** `Bridge`
 5. **Port hinzufügen:** 
    - Host Port: `5000` (oder ein freier Port deiner Wahl)
    - Container Port: `3000`
 6. **Pfad hinzufügen (Volume):**
-   - Host Path: `/mnt/user/appdata/pokescanner/Karten/`
+   - Host Path: `/mnt/user/appdata/cardsnapper/Karten/`
    - Container Path: `/Karten`
    - Access Mode: `Read/Write`
 7. Klicke auf **Apply**.
@@ -88,4 +86,4 @@ Da die Kamerafunktion im Browser zwingend **HTTPS** erfordert, nutzt der Contain
 ---
 
 ## 📁 Datenablage
-Die Bilder werden im Format `JJJJMMDD_00001.png` im Ordner `/mnt/user/appdata/pokescanner/Karten/` gespeichert. Durch das PNG-Format bleiben alle Details für die spätere KI-Analyse erhalten.
+Die Bilder werden im Format `JJJJMMDD_00001.png` im Ordner `/mnt/user/appdata/cardsnapper/Karten/` gespeichert. Durch das PNG-Format bleiben alle Details für die spätere KI-Analyse erhalten.
